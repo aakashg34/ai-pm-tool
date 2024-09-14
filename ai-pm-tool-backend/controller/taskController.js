@@ -85,7 +85,8 @@ exports.updateTask = async (req, res) => {
 exports.getAllTasks = async (req, res) => {
     console.log(req)
     try {
-      const tasks = await Task.find({ projectId: req.user.projectId, visibility: 'public' });
+      // const tasks = await Task.find({ projectId: req.user.projectId, visibility: 'public' });
+      const tasks = await Task.find()
       res.status(200).json(tasks);
     } catch (error) {
       res.status(500).json({ message: 'Server error', error });
