@@ -1,0 +1,51 @@
+.task-list {
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-bottom: 20px;
+  }
+  
+  .task-list h3 {
+    margin-bottom: 15px;
+    font-size: 22px;
+    color: #2c3e50;
+  }
+  
+  .task-list ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .task-item {
+    border-bottom: 1px solid #ecf0f1;
+    padding: 10px 0;
+  }
+  
+  .task-item:last-child {
+    border-bottom: none;
+  }
+  
+  .task-item h4 {
+    margin-bottom: 5px;
+    font-size: 18px;
+    color: #2c3e50;
+  }
+  
+  .task-item p {
+    margin-bottom: 5px;
+    font-size: 16px;
+  }
+  
+  .task-item .completed {
+    background-color: #dff0d8;
+  }
+  
+  .task-item .in-progress {
+    background-color: #d9edf7;
+  }
+  
+  .task-item .overdue {
+    background-color: #f2dede;
+  }
+  

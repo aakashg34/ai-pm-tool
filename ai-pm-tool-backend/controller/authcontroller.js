@@ -75,8 +75,13 @@ const loginUser = async (req, res) => {
         res.status(500).json({ message: 'Server error', error: error.message });
     }
 };
+const logout = (req, res) => {
+    // Assuming JWT tokens are stateless, the main task is to clear the client-side token
+    res.status(200).json({ msg: 'Logged out successfully' });
+  };
 
 module.exports = {
     registerUser,
     loginUser,
+    logout
 };
