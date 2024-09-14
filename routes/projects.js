@@ -1,42 +1,12 @@
 const express = require('express');
 const router = express.Router();
-const { check, validationResult } = require('express-validator');
+const projectController = require('../controller/projectController');
 const auth = require('../middleware/auth');
-const Project = require('../models/Project');
 
-// @route   POST api/projects
-// @desc    Create a new project
-// @access  Private
-router.post(
-  '/',
-  [
-    auth,
-    [check('name', 'Project name is required').not().isEmpty()]
-  ],
-  async (req, res) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
-    }
-
-    const { name, description, deadline, team } = req.body;
-
-    try {
-      const newProject = new Project({
-        name,
-        description,
-        deadline,
-        team,
-        createdBy: req.user.id
-      });
-
-      const project = await newProject.save();
-      res.json(project);
-    } catch (err) {
-      console.error(err.message);
-      res.status(500).send('Server error');
-    }
-  }
-);
+// Routes
+router.post('/', auth.authenticate, projectController.createProject);  // Create a project
+router.post('/:projectId/tasks', auth.authenticate, projectController.createTaskForProject);  // Attach a task to a project
+router.get('/:projectId/tasks', auth.authenticate, projectController.getProjectTasks);  // Get all tasks for a project
+router.get('/', auth.authenticate, projectController.getUserProjects);  // Get all projects for the user
 
 module.exports = router;

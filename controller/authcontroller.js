@@ -34,7 +34,7 @@ const registerUser = async (req, res) => {
 
 // Login User
 const loginUser = async (req, res) => {
-    console.log(req.body, "request body"); // To see the incoming request body
+    // console.log(req.body, "request body"); // To see the incoming request body
 
     try {
         const { email, password } = req.body;
@@ -66,8 +66,8 @@ const loginUser = async (req, res) => {
             process.env.JWT_SECRET, // Make sure you are using process.env.JWT_SECRET here
             { expiresIn: '1h' }
         );
-        console.log(user._id, "userid")
-        console.log(token, "token is here")
+        // console.log(user._id, "userid")
+        // console.log(token, "token is here")
 
         res.status(200).json({ message: 'Login successful', token });
     } catch (error) {
