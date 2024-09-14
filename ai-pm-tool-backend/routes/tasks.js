@@ -20,6 +20,10 @@ router.get('/tasks/:id',  authenticate, getUserTasks);
 // Update Task route
 router.put('/tasks/:id', authenticate, updateTask);
 
+//filter and search tasks
+router.get('/filter', authenticate, getFilteredTasks);
+
+
 module.exports = router;
 
 
