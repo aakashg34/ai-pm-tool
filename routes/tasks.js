@@ -1,20 +1,24 @@
 const express = require('express');
-const { createTask, deleteTask, getUserTasks, updateTask } = require('../controller/taskController');
+const { createTask, deleteTask, getUserTasks, updateTask, getFilteredTasks,getAllTasks } = require('../controller/taskController');
 const { authenticate } = require('../middleware/auth'); //  have auth middleware
 const router = express.Router();
-console.log('createTask:', createTask);
-console.log('authenticate:', authenticate);
 
+
+//To get filtered tasks
+router.get('/tasks/filters',authenticate, getFilteredTasks)
+
+//To get all the tasks regardless of any filter
+router.get('/tasks', authenticate, getAllTasks)
 // Create Task route
-router.post('/create', authenticate, createTask);  // Protected route
+router.post('/tasks', authenticate, createTask);  // Protected route
 // Delete Task route
-router.delete('/:taskId', authenticate,  deleteTask);
+router.delete('/tasks/:id', authenticate,  deleteTask);
 
 // Get Tasks route
-router.get('/',  authenticate, getUserTasks);
+router.get('/tasks/:id',  authenticate, getUserTasks);
 
 // Update Task route
-router.put('/:taskId', authenticate, updateTask);
+router.put('/tasks/:id', authenticate, updateTask);
 
 module.exports = router;
 

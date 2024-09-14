@@ -1,25 +1,5 @@
 const Task = require('../models/Task');
 
-// Create a new task
-// const createTask = async (req, res) => {
-
-//     console.log('Create Task function called');
-//     try {
-//         const { title, description, dueDate, assignedTo } = req.body;
-//         const task = new Task({
-//             title,
-//             description,
-//             dueDate,
-//             assignedTo,
-//             createdBy: req.user.userId,  // Assuming user is authenticated
-//         });
-//         await task.save();
-//         res.status(201).json({ message: 'Task created successfully!', task });
-//     } catch (error) {
-//         res.status(500).json({ message: 'Server error', error });
-//     }
-// };
-
 exports.createTask = async (req, res) => {
     console.log(req.user);
      // Log req.user to check if it contains user data
@@ -102,6 +82,31 @@ exports.updateTask = async (req, res) => {
         res.status(500).json({ message: 'Server error', error });
     }
 };
+exports.getAllTasks = async (req, res) => {
+    console.log(req)
+    try {
+      const tasks = await Task.find({ projectId: req.user.projectId, visibility: 'public' });
+      res.status(200).json(tasks);
+    } catch (error) {
+      res.status(500).json({ message: 'Server error', error });
+    }
+  };
+  
+  exports.getFilteredTasks = async (req, res) => {
+    const { status, assignedTo, sortBy } = req.query;
+    let query = { projectId: req.user.projectId, visibility: 'public' };
+  
+    if (status) query.status = status;
+    if (assignedTo) query.assignedTo = assignedTo;
+  
+    try {
+      const tasks = await Task.find(query).sort({ [sortBy]: 1 }); // Sort based on query param
+      res.status(200).json(tasks);
+    } catch (error) {
+      res.status(500).json({ message: 'Server error', error });
+    }
+  };
+  
 
 // module.exports = { createTask, deleteTask, getUserTasks, updateTask };
 
