@@ -1,4 +1,4 @@
-const role = require('../middleware/role');
+const role = require('./role');
 
 // Only project managers and admins can create tasks
 router.post('/', [auth, role('project_manager')], async (req, res) => {
