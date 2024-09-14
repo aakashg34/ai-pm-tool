@@ -10,3 +10,14 @@ Visibility: Set task visibility as public or private.
 Status Management: Update task status (e.g., Pending, In Progress, Completed, Overdue).
 Advanced Filtering and Search: Search and filter tasks by multiple parameters such as title, status, due date, and more.
 Scalability: The app is built to handle large data volumes with optimized task filtering and searching capabilities.
+
+Contributing
+We welcome contributions to this project! Feel free to submit pull requests, report issues, or suggest enhancements.
+
+How to Contribute
+Fork the repository.
+Create a new feature branch.
+Make your changes.
+Test your changes.
+Submit a pull request.
+
