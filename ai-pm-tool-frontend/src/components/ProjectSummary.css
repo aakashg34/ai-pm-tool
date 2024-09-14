@@ -1,0 +1,49 @@
+.project-summary {
+    padding: 20px;
+    background-color: #f4f7f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .project-summary h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #333;
+  }
+  
+  .project-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  
+  .project-card {
+    padding: 15px;
+    background-color: #ffffff;
+    border-radius: 6px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  }
+  
+  .project-name {
+    font-size: 20px;
+    font-weight: 600;
+    margin: 0;
+    color: #2c3e50;
+  }
+  
+  .project-description {
+    font-size: 16px;
+    color: #7f8c8d;
+    margin: 10px 0;
+  }
+  
+  .project-info {
+    display: flex;
+    justify-content: flex-start;
+  }
+  
+  .project-date {
+    font-size: 14px;
+    color: #95a5a6;
+  }
+  

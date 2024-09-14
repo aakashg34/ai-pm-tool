@@ -85,7 +85,8 @@ exports.updateTask = async (req, res) => {
 exports.getAllTasks = async (req, res) => {
     console.log(req)
     try {
-      const tasks = await Task.find({ projectId: req.user.projectId, visibility: 'public' });
+      // const tasks = await Task.find({ projectId: req.user.projectId, visibility: 'public' });
+      const tasks = await Task.find()
       res.status(200).json(tasks);
     } catch (error) {
       res.status(500).json({ message: 'Server error', error });
@@ -93,16 +94,43 @@ exports.getAllTasks = async (req, res) => {
   };
   
   exports.getFilteredTasks = async (req, res) => {
-    const { status, assignedTo, sortBy } = req.query;
-    let query = { projectId: req.user.projectId, visibility: 'public' };
-  
-    if (status) query.status = status;
-    if (assignedTo) query.assignedTo = assignedTo;
-  
     try {
-      const tasks = await Task.find(query).sort({ [sortBy]: 1 }); // Sort based on query param
+      const {
+        status, assignedTo, projectId, visibility, dueDateStart, dueDateEnd, search, sortBy, order
+      } = req.query;
+  
+      // Build the query dynamically based on available filters
+      let filter = {};
+      
+      if (status) filter.status = status;
+      if (assignedTo) filter.assignedTo = assignedTo;
+      if (projectId) filter.projectId = projectId;
+      if (visibility) filter.visibility = visibility;
+      
+      // Filter tasks based on due date range
+      if (dueDateStart || dueDateEnd) {
+        filter.dueDate = {};
+        if (dueDateStart) filter.dueDate.$gte = new Date(dueDateStart);
+        if (dueDateEnd) filter.dueDate.$lte = new Date(dueDateEnd);
+      }
+  
+      // Text search for title and description
+      if (search) filter.$text = { $search: search };
+      console.log(search , "hierer")
+      // Default sorting and ordering, can be based on dueDate, createdDate, etc.
+      let sort = {};
+      if (sortBy) {
+        sort[sortBy] = order === 'desc' ? -1 : 1;
+      } else {
+        sort['createdDate'] = -1;  // Default sorting by creation date
+      }
+  
+      // Execute the query
+      const tasks = await Task.find(filter).sort(sort);
+      
       res.status(200).json(tasks);
     } catch (error) {
+      console.error(error);
       res.status(500).json({ message: 'Server error', error });
     }
   };

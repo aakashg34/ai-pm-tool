@@ -19,7 +19,9 @@ const TaskSchema = new mongoose.Schema({
 });
 
 // Add index on assignedTo and projectId
-TaskSchema.index({ assignedTo: 1 });
-TaskSchema.index({ projectId: 1 });
+// TaskSchema.index({ assignedTo: 1 });
+// TaskSchema.index({ projectId: 1 });
+// Full-text search index on title and description
+TaskSchema.index({ title: 'text', description: 'text' });
 
 module.exports = mongoose.model('Task', TaskSchema);

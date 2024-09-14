@@ -1,12 +1,14 @@
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
+const cors = require('cors');
 const projectRoutes = require('./routes/projects');
 // Load models
 const User = require('./models/User');
 const Project = require('./models/Project.js');
 const Task = require('./models/Task');
 // Middleware
+app.use(cors())
 app.use(express.json());
 
 // Routes
